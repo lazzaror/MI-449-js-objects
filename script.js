@@ -84,7 +84,10 @@ var addJoke = function () {
   var newPunchline = document.getElementById('newPunchline').value
 
   if (newKey && newSetup && newPunchline) {
-    jokes[newKey].setup = newSetup
+    jokes[newKey] = {
+      setup: newSetup,
+      punchline: newPunchline
+    }
   }
   updateJokesMenu()
   updateLocalStorage()
