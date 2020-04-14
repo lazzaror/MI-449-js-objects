@@ -37,7 +37,19 @@ var requestedJokeInput = document.getElementById('requested-joke')
 var jokeBox = document.getElementById('joke-box')
 var updateDisplayedJoke = function () {
   var requestedJokeKey = requestedJokeInput.value
-  jokeBox.textContent = requestedJokeKey
+
+  if (requestedJokeKey) {
+    var requestedJoke = jokes[requestedJokeInput.value]
+    if (jokes[requestedJokeInput.value]) {
+      console.log('YES')
+      jokeBox.innerHTML = '<p>' + requestedJoke.setup + '</p>'
+      jokeBox.innerHTML += '<p>' + requestedJoke.punchline + '</p>'
+    }
+    else {
+      console.log('NO')
+      jokeBox.textContent = 'No matching joke found.'
+    }
+  }
 }
 
 // Function to keep track of all other
