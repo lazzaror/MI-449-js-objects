@@ -41,12 +41,10 @@ var updateDisplayedJoke = function () {
   if (requestedJokeKey) {
     var requestedJoke = jokes[requestedJokeInput.value]
     if (jokes[requestedJokeInput.value]) {
-      console.log('YES')
       jokeBox.innerHTML = '<p>' + requestedJoke.setup + '</p>'
       jokeBox.innerHTML += '<p>' + requestedJoke.punchline + '</p>'
     }
     else {
-      console.log('NO')
       jokeBox.textContent = 'No matching joke found.'
     }
   }
@@ -60,6 +58,21 @@ var updatePage = function () {
   updateDisplayedJoke()
 }
 
+
+// Delete a joke
+var deleteJoke = function () {
+  var jokeKey = document.getElementById('forgetInput').value
+  if (jokeKey) {
+    delete jokes[jokeKey]
+  }
+  updateJokesMenu()
+}
+
+// Add a joke
+var addJoke = function() {
+
+}
+
 // -------
 // STARTUP
 // -------
@@ -70,6 +83,10 @@ updatePage()
 // ---------------
 // EVENT LISTENERS
 // ---------------
+var rememberMe = document.getElementById('rememberBtn')
+var forgetMe = document.getElementById('forgetBtn')
 
 // Keep the requested joke up-to-date
 requestedJokeInput.addEventListener('input', updateDisplayedJoke)
+rememberMe.addEventListener('click', addJoke)
+forgetMe.addEventListener('click', deleteJoke)
