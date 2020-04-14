@@ -54,10 +54,18 @@ var updateDisplayedJoke = function () {
 // page update functions, so that we
 // can call them all at once
 var updatePage = function () {
+  if (window.localStorage.getItem('oldJokes') === null) {
+    var stringifiedJokes = JSON.stringify(jokes)
+    window.localStorage.setItem('oldJokes', stringifiedJokes)
+  }
+  else {
+    var updatedJokes = window.localStorage.getItem('oldJokes')
+    var oldJokes = JSON.parse(updatedJokes)
+    jokes = oldJokes
+  }
   updateJokesMenu()
   updateDisplayedJoke()
 }
-
 
 // Delete a joke
 var deleteJoke = function () {
@@ -66,11 +74,27 @@ var deleteJoke = function () {
     delete jokes[jokeKey]
   }
   updateJokesMenu()
+  updateLocalStorage()
 }
 
 // Add a joke
-var addJoke = function() {
+var addJoke = function () {
+  var newKey = document.getElementById('jokeSubject').value
+  var newSetup = document.getElementById('newSetUp').value
+  var newPunchline = document.getElementById('newPunchline').value
 
+  if (newKey && newSetup && newPunchline) {
+    jokes[newKey].setup = newSetup
+  }
+  updateJokesMenu()
+  updateLocalStorage()
+  console.log(jokes)
+}
+
+// Update localStorage
+var updateLocalStorage = function () {
+  var stringifiedJokes = JSON.stringify(jokes)
+  window.localStorage.setItem('oldJokes', stringifiedJokes)
 }
 
 // -------
